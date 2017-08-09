@@ -1,0 +1,7 @@
+name: GraphQL Example
+type: module
+description: 'An example module for GraphQL extensions.'
+package: GraphQL
+core: 8.x
+dependencies:
+- graphql_core
