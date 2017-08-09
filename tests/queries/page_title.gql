@@ -1,0 +1,5 @@
+query ($path: String!) {
+  route(path: $path) {
+    pageTitle
+  }
+}
