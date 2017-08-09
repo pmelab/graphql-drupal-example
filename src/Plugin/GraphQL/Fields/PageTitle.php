@@ -2,8 +2,8 @@
 
 namespace Drupal\graphql_example\Plugin\GraphQL\Fields;
 
+use Drupal\Core\Url;
 use Drupal\graphql_core\GraphQL\FieldPluginBase;
-use Symfony\Cmf\Component\Routing\RouteObjectInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Youshido\GraphQL\Execution\ResolveInfo;
 
@@ -18,9 +18,7 @@ use Youshido\GraphQL\Execution\ResolveInfo;
  *   name = "pageTitle",
  *   nullable = true,
  *   multi = false,
- *   arguments = {
- *     "path" = "String",
- *   }
+ *   types = {"Url"}
  * )
  */
 class PageTitle extends FieldPluginBase {
@@ -29,13 +27,11 @@ class PageTitle extends FieldPluginBase {
    * {@inheritdoc}
    */
   protected function resolveValues($value, array $args, ResolveInfo $info) {
-    $request = Request::create($args['path']);
-    $route = \Drupal::service('router.no_access_checks')->matchRequest($request);
-
-    // Get the request route.
-    if (isset($route[RouteObjectInterface::ROUTE_OBJECT])) {
-      // If there is a route, yield the generated title.
-      yield \Drupal::service('title_resolver')->getTitle($request, $route[RouteObjectInterface::ROUTE_OBJECT]);
+    if ($value instanceof Url) {
+      if ($route = \Drupal::service('router.route_provider')->getRouteByName($value->getRouteName())) {
+        $request = Request::create($value->toString());
+        yield \Drupal::service('title_resolver')->getTitle($request, $route);
+      }
     }
   }
 
