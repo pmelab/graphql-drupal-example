@@ -18,7 +18,7 @@ use Youshido\GraphQL\Execution\ResolveInfo;
  *   name = "pageTitle",
  *   nullable = true,
  *   multi = false,
- *   types = {"Url"}
+ *   types = {"GenericUrl"}
  * )
  */
 class PageTitle extends FieldPluginBase {

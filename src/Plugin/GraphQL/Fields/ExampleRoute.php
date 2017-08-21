@@ -13,7 +13,7 @@ use Drupal\graphql_core\Plugin\GraphQL\Fields\Route;
  * @GraphQLField(
  *   id = "example_url_route",
  *   name = "route",
- *   type = "Url",
+ *   type = "GenericUrl",
  *   nullable = true,
  *   arguments = {
  *     "path" = "String"
