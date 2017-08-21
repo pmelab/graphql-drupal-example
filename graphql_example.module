@@ -1,0 +1,15 @@
+<?php
+
+/**
+ * @file
+ * GraphQL Example hook implementations.
+ */
+
+/**
+ * Implements hook_graphql_types_alter().
+ *
+ * Make sure the `Url` type implements `GenericUrl`.
+ */
+function graphql_example_graphql_types_alter(&$types) {
+  $types['url']['interfaces'][] = 'GenericUrl';
+}
